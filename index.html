@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:lightskyblue; /* Light cyan background */
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        .task-list {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        } 
+
+        .delete-button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px; /* Smaller padding */
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 12px;
+            width: 70px; /* Smaller font size */
+            height: 30px;
+        }
+
+        .delete-button:hover {
+            background-color: #e60000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Task Manager</h1>
+        <input type="text" id="taskInput" placeholder="Enter a new task">
+        <button id="addTaskButton">Add Task</button>
+
+        <ul class="task-list" id="taskList"></ul>
+    </div>
+
+    <script>
+        // Function to add a new task
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const taskList = document.getElementById('taskList');
+            const taskText = taskInput.value.trim();
+
+            // Check if the task input is not empty
+            if (taskText === '') {
+                alert('Please enter a task.');
+                return;
+            }
+
+            // Create a new list item for the task
+            const listItem = document.createElement('li');
+            listItem.className = 'task-item';
+            listItem.textContent = taskText;
+
+            // Create a delete button for the task
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'delete-button';
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = function() {
+                taskList.removeChild(listItem);
+            };
+
+            // Append the delete button to the list item
+            listItem.appendChild(deleteButton);
+
+            // Append the list item to the task list
+            taskList.appendChild(listItem);
+
+            // Clear the input field
+            taskInput.value = '';
+        }
+
+        // Event listener for the 'Add Task' button
+        document.getElementById('addTaskButton').addEventListener('click', addTask);
+    </script>
+</body>
+</html>
